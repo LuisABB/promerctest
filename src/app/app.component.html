@@ -1,0 +1,106 @@
+<canvas #fxCanvas class="fx-canvas" aria-hidden="true"></canvas>
+
+<div class="background-atmosphere" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="brand" href="#inicio" aria-label="PROMERC Inicio">
+    <span class="brand-main">PROMER</span><span class="brand-accent">C</span>
+  </a>
+
+  <nav class="nav-links" aria-label="Navegacion principal">
+    <a href="#casos">CASOS DE EXITO</a>
+    <a href="https://mail.promerc.com.mx:2096/">WEBMAIL</a>
+    <a href="#servicios">SERVICIOS</a>
+    <!--<a href="#stand-3d">Stand 3D</a>-->
+    <a href="#contacto">CONTACTO</a>
+
+    <details class="jobs-menu">
+      <summary>BOLSA DE TRABAJO</summary>
+      <div class="jobs-dropdown">
+        <a href="https://www.promerc.com.mx/bolsa-de-trabajo" target="_blank" rel="noopener">DISPONIBLES</a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener">FACEBOOK</a>
+        <a href="https://www.computrabajo.com.mx/" target="_blank" rel="noopener">COMPU TRABAJO</a>
+      </div>
+    </details>
+  </nav>
+
+  <a class="cta-button" href="#contacto">Cotizar</a>
+</header>
+
+<main id="inicio">
+  <section class="hero section-card" style="--depth:0.2;">
+    <span class="tagline">42 ANOS DE EXITOS JUNTOS</span>
+    <h1>
+      El punto de venta,<br />
+      <span class="gradient-text">en tres dimensiones.</span>
+    </h1>
+    <p>
+      Promotoria, trade marketing y experiencias de marca con cobertura nacional.
+      Si creces tu, crecemos nosotros.
+    </p>
+
+    <div class="hero-actions">
+      <a class="cta-button" href="#servicios">Ver servicios</a>
+    </div>
+  </section>
+
+    <section id="servicios" class="content-block">
+    <h2>Servicios</h2>
+    <p class="lead">Un ecosistema completo para activar tu marca desde la estrategia hasta el anaquel.</p>
+
+    <div class="service-grid">
+      @for (service of services; track service.id) {
+        <article class="service-card section-card" style="--depth:0.16;">
+          <span class="index">{{ service.id }}</span>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+    <section class="content-block">
+    <h2>Testimoniales</h2>
+    <div class="testimonials-grid">
+      @for (item of testimonials; track item.name) {
+        <article class="testimonial-card section-card" style="--depth:0.12;">
+          <p class="quote">"{{ item.quote }}"</p>
+          <h3>{{ item.name }}</h3>
+          <span>{{ item.company }}</span>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="content-block" aria-label="Algunos hitos">
+    <h2>ALGUNOS HITOS</h2>
+    <div class="metrics">
+      @for (item of metrics; track item.label) {
+        <article class="metric-card section-card" style="--depth:0.18;">
+          <h2>{{ item.value }}</h2>
+          <p>{{ item.label }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+
+  <section id="casos" class="content-block">
+    <h2>Casos de exito</h2>
+    <div class="cases-grid">
+      @for (item of cases; track item) {
+        <article class="case-card section-card" style="--depth:0.14;">
+          <p>{{ item }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section id="contacto" class="contact-card section-card" style="--depth:0.24;">
+    <h2>
+      Listo para <span class="gradient-text">crecer juntos</span>?
+    </h2>
+    <p>Cuentanos tu reto en el punto de venta y armamos una propuesta a la medida.</p>
+    <a class="cta-button" href="https://48e47dfd.portafolio-85e.pages.dev/">Solicitar cotizacion</a>
+  </section>
+</main>
