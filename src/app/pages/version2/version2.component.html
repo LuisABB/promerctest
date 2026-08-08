@@ -1,0 +1,324 @@
+<div class="v2" [class.is-menu-open]="menuOpen">
+  <header class="v2-header">
+    <div class="v2-wrap v2-header__row">
+      <a class="v2-logo" href="#top" (click)="closeMenu()">Meibe</a>
+      <nav class="v2-nav" [class.is-open]="menuOpen" aria-label="Principal">
+        @for (link of nav; track link.href) {
+          <a [href]="link.href" (click)="closeMenu()">{{ link.label }}</a>
+        }
+      </nav>
+      <a class="v2-btn v2-btn--green v2-header__cta" [href]="whatsapp" target="_blank" rel="noopener">
+        Hablemos <span aria-hidden="true">↗</span>
+      </a>
+      <button class="v2-burger" type="button" [attr.aria-expanded]="menuOpen" aria-label="Menú" (click)="toggleMenu()">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="v2-hero">
+      <div class="v2-hero__fx">
+        <app-v2-three-scene />
+      </div>
+      <div class="v2-wrap v2-hero__content">
+        <p class="v2-kicker v2-kicker--line">Mexico City — Est. Creative Studio</p>
+        <h1 class="v2-hero__title">
+          We're a <span>creative studio.</span>
+        </h1>
+        <p class="v2-hero__ghost" aria-hidden="true">Somos un estudio creativo.</p>
+        <div class="v2-hero__copy">
+          <p>Estrategia, creatividad y producción bajo una misma línea.</p>
+          <p class="is-muted"><em>Think it. Create it. Produce it.</em></p>
+        </div>
+        <div class="v2-hero__actions">
+          <a class="v2-btn v2-btn--green" [href]="whatsapp" target="_blank" rel="noopener">
+            Make it Meibe <span aria-hidden="true">↗</span>
+          </a>
+          <a class="v2-btn v2-btn--ghost" href="#work">Ver proyectos <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="v2-scroll" aria-hidden="true">
+        <span>Scroll to explore</span>
+        <i></i>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="v2-marquee" aria-hidden="true">
+      <div class="v2-marquee__track">
+        @for (item of marquee; track item) {
+          <span>{{ item }}</span>
+          <span class="v2-marquee__dot">♦</span>
+        }
+        @for (item of marquee; track item + '-b') {
+          <span>{{ item }}</span>
+          <span class="v2-marquee__dot">♦</span>
+        }
+      </div>
+    </div>
+
+    <!-- PROBLEMA -->
+    <section class="v2-section" id="about">
+      <div class="v2-wrap v2-problem">
+        <div>
+          <p class="v2-label">El problema</p>
+          <h2 class="v2-h2">Que ninguna gran visión se quede sin contarse bien.</h2>
+        </div>
+        <div class="v2-problem__right">
+          <p>
+            Meibe diseña estrategias para marcas que quieren crecer pero no logran comunicarse de
+            forma coherente ni convertir esa comunicación en resultados.
+          </p>
+          <p class="v2-label">El problema de trabajar con tres agencias distintas</p>
+          <div class="v2-silos">
+            @for (s of silos; track s) {
+              <div class="v2-silo">{{ s }}</div>
+            }
+          </div>
+          <div class="v2-vs"><span>vs.</span></div>
+          <div class="v2-unity">
+            <span>Una sola línea creativa</span>
+            <span class="v2-unity__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUCIÓN -->
+    <section class="v2-section v2-solution">
+      <div class="v2-wrap">
+        <p class="v2-label is-center">La solución Meibe</p>
+        <h2 class="v2-solution__title">
+          Think it.<br />
+          Create it.<br />
+          <em>Produce it.</em>
+        </h2>
+        <div class="v2-pillars">
+          @for (p of pillars; track p.n) {
+            <article>
+              <span>{{ p.n }}</span>
+              <h3>{{ p.title }}</h3>
+              <p>{{ p.text }}</p>
+            </article>
+          }
+        </div>
+        <div class="v2-quotes">
+          <p><em>“Rooted in Mexico, thinking globally.”</em></p>
+          <p class="is-green"><em>“No fluff, just performance.”</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="v2-section" id="services">
+      <div class="v2-wrap">
+        <p class="v2-label is-green">Lo que hacemos</p>
+        <h2 class="v2-h2 is-green">Todo bajo un mismo techo.</h2>
+        <div class="v2-areas">
+          <article class="v2-area v2-area--green">
+            <header>
+              <div>
+                <p class="v2-label">Área 01</p>
+                <h3>Agencia de Marketing</h3>
+              </div>
+              <span aria-hidden="true">↗</span>
+            </header>
+            <ul>
+              @for (item of agency; track item) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          </article>
+          <article class="v2-area v2-area--cream">
+            <header>
+              <div>
+                <p class="v2-label">Área 02</p>
+                <h3>Productora Audiovisual</h3>
+              </div>
+              <span aria-hidden="true">↗</span>
+            </header>
+            <ul>
+              @for (item of production; track item) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="v2-process">
+      <div class="v2-wrap">
+        <p class="v2-label is-light">Nuestro proceso</p>
+        <h2 class="v2-h2 is-light">Cómo trabajamos.</h2>
+        <div class="v2-process__grid">
+          @for (step of process; track step.n) {
+            <article>
+              <span class="v2-process__n">{{ step.n }}</span>
+              <p class="v2-process__tag">{{ step.tag }}</p>
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.text }}</p>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- CASOS -->
+    <section class="v2-section" id="work">
+      <div class="v2-wrap">
+        <p class="v2-label">Casos de éxito</p>
+        <h2 class="v2-h2">El trabajo habla por sí solo.</h2>
+        <div class="v2-cases">
+          @for (c of cases; track c.title) {
+            <article class="v2-case" [attr.data-tone]="c.tone">
+              <span class="v2-case__ghost" aria-hidden="true">{{ c.metric }}</span>
+              <div class="v2-case__top">
+                <p class="v2-label">{{ c.cat }}</p>
+                <span aria-hidden="true">↗</span>
+              </div>
+              <h3>{{ c.title }}</h3>
+              <p><strong>Problema:</strong> {{ c.problem }}</p>
+              <p><strong>Solución:</strong> {{ c.solution }}</p>
+              <div class="v2-case__metric">
+                <div>
+                  <strong>{{ c.metric }}</strong>
+                  <span>{{ c.metricLabel }}</span>
+                </div>
+                <p>{{ c.detail }}</p>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="v2-section">
+      <div class="v2-wrap">
+        <p class="v2-label">Por qué Meibe</p>
+        <h2 class="v2-h2">Lo que nos hace distintos.</h2>
+        <div class="v2-why">
+          @for (item of why; track item.title) {
+            <article>
+              <p class="v2-why__tag">{{ item.tag }}</p>
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.text }}</p>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTAFOLIO -->
+    <section class="v2-section">
+      <div class="v2-wrap">
+        <p class="v2-label">Portafolio</p>
+        <h2 class="v2-h2">Marcas que confían en Meibe.</h2>
+        <div class="v2-brands">
+          @for (b of brands; track b) {
+            <div>{{ b }}</div>
+          }
+        </div>
+        <div class="v2-blocks">
+          <article class="v2-block v2-block--green">
+            <div class="v2-block__diamond" aria-hidden="true"></div>
+            <p class="v2-label is-gold">Campaign</p>
+            <h3>Branding + Producción</h3>
+          </article>
+          <div class="v2-blocks__side">
+            <article class="v2-block v2-block--gold">
+              <p class="v2-label">Digital</p>
+              <h3>Paid Media</h3>
+            </article>
+            <article class="v2-block v2-block--black">
+              <p class="v2-label is-muted">Audio</p>
+              <h3>Podcast</h3>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA MID -->
+    <section class="v2-section v2-cta-mid" id="contact">
+      <div class="v2-wrap is-center">
+        <div class="v2-pill">● Últimos espacios disponibles para 2026</div>
+        <h2 class="v2-h2 v2-cta-mid__title">
+          ¿Tienes una visión?<br />
+          <em>Hagámosla sentir.</em>
+        </h2>
+        <p>Una conversación de 30 minutos puede cambiar la dirección de tu marca. Sin compromiso, con claridad.</p>
+        <a class="v2-btn v2-btn--green v2-btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
+          Hablar por WhatsApp <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="v2-section">
+      <div class="v2-wrap v2-faq">
+        <p class="v2-label is-center">Preguntas frecuentes</p>
+        <h2 class="v2-h2 is-center">Todo lo que necesitas saber.</h2>
+        <div class="v2-faq__list">
+          @for (item of faqs; track item.q; let i = $index) {
+            <div class="v2-faq__item" [class.is-open]="openFaq === i">
+              <button type="button" (click)="toggleFaq(i)">
+                <span>{{ item.q }}</span>
+                <i aria-hidden="true">{{ openFaq === i ? '−' : '+' }}</i>
+              </button>
+              <div class="v2-faq__a">
+                <p>{{ item.a }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <section class="v2-final">
+      <div class="v2-final__mesh" aria-hidden="true"></div>
+      <div class="v2-wrap is-center v2-final__inner">
+        <p class="v2-label is-light">Meibe Creative Studio</p>
+        <h2>
+          We don't want people to just see your brand.<br />
+          <em>We want them to feel it.</em>
+        </h2>
+        <p class="v2-final__ghost">Make it Meibe.</p>
+        <a class="v2-btn v2-btn--gold v2-btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
+          Hablemos → WhatsApp <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="v2-footer">
+    <div class="v2-wrap v2-footer__grid">
+      <div>
+        <p class="v2-logo is-light">Meibe</p>
+        <p>We think it, create it, and produce it. Mexico City — Global.</p>
+      </div>
+      <div>
+        <p class="v2-label is-muted">Navegación</p>
+        @for (link of nav; track link.href) {
+          <a [href]="link.href">{{ link.label }}</a>
+        }
+      </div>
+      <div>
+        <p class="v2-label is-muted">Social</p>
+        <a href="#">Instagram ↗</a>
+        <a href="#">TikTok ↗</a>
+        <a href="#">Facebook ↗</a>
+        <a href="#">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="v2-wrap v2-footer__bottom">
+      <p>© 2026 Meibe Creative Studio. Todos los derechos reservados.</p>
+      <p class="v2-footer__status"><i></i> WhatsApp disponible</p>
+    </div>
+  </footer>
+</div>
