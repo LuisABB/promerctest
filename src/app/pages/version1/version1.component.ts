@@ -1,160 +1,98 @@
-import { Component } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
-import { ThreeSceneComponent } from '../../components/three-scene/three-scene.component';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  ViewChild
+} from '@angular/core';
 
 @Component({
   selector: 'app-version1',
   standalone: true,
-  imports: [HeaderComponent, ThreeSceneComponent],
   templateUrl: './version1.component.html',
   styleUrl: './version1.component.scss'
 })
-export class Version1Component {
-  readonly whatsapp = 'https://wa.me/525636352382';
+export class Version1Component implements AfterViewInit, OnDestroy {
+  @ViewChild('page', { static: true }) pageRef!: ElementRef<HTMLElement>;
 
-  menuOpenFaq = 0;
+  readonly whatsapp =
+    'https://wa.me/525636352382?text=Hola%20Meibe%2C%20quiero%20hablar%20sobre%20un%20proyecto.';
 
-  readonly problemCards = [
-    'Mensajes incoherentes entre canales',
-    'Tres proveedores que no se hablan',
-    'Contenido que no mueve la aguja'
+  menuOpen = false;
+  scrolled = false;
+  private observer?: IntersectionObserver;
+
+  readonly nav = [
+    { label: 'Work', href: '#work' },
+    { label: 'Services', href: '#services' },
+    { label: 'About', href: '#about' },
+    { label: 'Contact', href: '#contact' }
   ];
 
-  readonly solutionCards = [
+  readonly strip = [
     {
-      title: 'Un solo techo',
-      text: 'No coordinas tres proveedores distintos. Por eso todo se siente coherente.'
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-woman-turning-her-head-away-from-camera-32808-large.mp4',
+      poster: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=70'
     },
     {
-      title: 'Estándar internacional',
-      text: 'Raíz mexicana con ambición global: sensibilidad local, ejecución global.'
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smart-watch-4288-large.mp4',
+      poster: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=70'
     },
     {
-      title: 'Resultados medibles',
-      text: 'Alcance, percepción y conversión. No solo estética.'
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-woman-eye-looking-at-the-camera-39880-large.mp4',
+      poster: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=70'
+    },
+    {
+      src: 'https://assets.mixkit.co/videos/preview/mixkit-silhouette-of-a-man-walking-on-stairs-40887-large.mp4',
+      poster: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=70'
     }
   ];
 
-  readonly agencyServices = [
-    'Branding y arquitectura de marca',
-    'Estrategia digital',
-    'Manejo de redes sociales',
-    'Diseño de contenido',
-    'UGC & talent management',
-    'Paid media — Meta / TikTok Ads / Google Analytics',
-    'Diseño web',
-    'Ilustración & animación'
+  readonly services = [
+    { n: '01', title: 'Strategy', text: 'El porqué, el para quién y el resultado. Primero pensamos.' },
+    { n: '02', title: 'Brand & Content', text: 'Identidad, mensaje y piezas que se sienten en cada canal.' },
+    { n: '03', title: 'Audiovisual', text: 'Video, foto, audio y postproducción bajo la misma línea.' },
+    { n: '04', title: 'Growth', text: 'Paid media y medición: alcance, percepción y conversión.' }
   ];
 
-  readonly productionServices = [
-    'Video & foto de contenido',
-    'Producción con dron',
-    'Postproducción y edición de audio y video',
-    'Cobertura de eventos sociales',
-    'Grabación de audio',
-    'Producción de podcast',
-    'Doblaje, mezcla & mastering'
+  readonly values = [
+    { tag: '+ Craft', text: 'Pensamos como cineastas: ritmo, narrativa y emoción. Descartamos el exceso para ganar claridad.' },
+    { tag: '+ Precision', text: 'Workflow profesional. Creatividad como ciencia aplicada para resolver problemas reales.' },
+    { tag: '+ Partners', text: 'Nos involucramos en el crecimiento de la marca, no solo en entregar archivos.' }
   ];
 
-  readonly processSteps = [
-    {
-      n: '01',
-      title: 'Entendemos el porqué',
-      text: 'Nunca empezamos por el diseño. Primero el porqué, el para quién y el qué quieres lograr.'
-    },
-    {
-      n: '02',
-      title: 'Diseñamos la estrategia',
-      text: 'Territorio de marca, mensajes y plan de canales con métricas definidas desde el día uno.'
-    },
-    {
-      n: '03',
-      title: 'Creamos y producimos',
-      text: 'Pensamos como cineastas: ritmo, narrativa y emoción. Todo bajo el mismo techo.'
-    },
-    {
-      n: '04',
-      title: 'Medimos y ajustamos',
-      text: 'Alcance, percepción y conversión. Los resultados mandan sobre lo bonito.'
-    }
-  ];
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.scrolled = window.scrollY > 24;
+  }
 
-  readonly cases = [
-    { title: '2 años', text: 'construyendo marcas que se sienten' },
-    { title: 'Marcas & Proyectos', text: 'creativos, campañas y producción por cliente' },
-    { title: 'Reportes', text: 'métricas de alcance, percepción y conversión' }
-  ];
+  ngAfterViewInit(): void {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+          }
+        }
+      },
+      { threshold: 0.18, rootMargin: '0px 0px -8% 0px' }
+    );
 
-  readonly benefits = [
-    {
-      title: 'Estrategia primero',
-      text: 'El porqué antes del cómo. Nada se produce sin intención.'
-    },
-    {
-      title: 'Craft de cine',
-      text: 'Ritmo, narrativa y emoción en cada pieza que sale del estudio.'
-    },
-    {
-      title: 'Medimos lo que importa',
-      text: 'Reportes claros por marca: alcance, percepción y conversión.'
-    },
-    {
-      title: 'Socios, no proveedores',
-      text: 'Nos metemos al crecimiento de la marca, no solo a la entrega.'
-    }
-  ];
+    this.pageRef.nativeElement
+      .querySelectorAll('[data-reveal]')
+      .forEach((el) => this.observer?.observe(el));
+  }
 
-  readonly portfolio = [
-    'Médicos y clínicas',
-    'Beauty & wellness',
-    'Estudios de ejercicio',
-    'Restaurantes',
-    'E-commerce & emprendedores',
-    'Marcas personales, cursos y podcasts'
-  ];
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+  }
 
-  readonly plans = [
-    {
-      title: 'Solo producción',
-      text: 'Video, foto, audio, podcast y postproducción para marcas personales, cursos y podcasts.',
-      featured: false
-    },
-    {
-      title: 'Marketing & estrategia',
-      text: 'Branding, redes, contenido, paid media y web con métricas definidas.',
-      featured: false
-    },
-    {
-      title: 'Estudio completo',
-      text: 'Estrategia + creatividad + producción bajo un mismo techo. La ventaja Meibe.',
-      featured: true
-    }
-  ];
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
 
-  readonly faqs = [
-    {
-      q: '¿Puedo contratar solo producción audiovisual?',
-      a: 'Sí. Muchas marcas personales, cursos y podcasts llegan solo por producción de contenido: video, foto, audio y postproducción. También puedes sumar estrategia después.'
-    },
-    {
-      q: '¿Cómo comparten resultados y casos de éxito?',
-      a: 'Damos acceso a carpetas de clientes activos e inactivos y a reportes por marca, con métricas reales de alcance, percepción y conversión.'
-    },
-    {
-      q: '¿Trabajan con marcas fuera de México?',
-      a: 'Sí. Estamos rooted in Mexico, thinking globally: sensibilidad local con ejecución de estándar internacional.'
-    },
-    {
-      q: '¿Cuánto tiempo llevan operando?',
-      a: 'Llevamos 2 años construyendo marcas que se sienten, con proyectos creativos, campañas y producción por cliente.'
-    },
-    {
-      q: '¿Tienen disponibilidad ahora?',
-      a: 'Quedan últimos espacios de agenda en 2026. Escríbenos por WhatsApp y te confirmamos tiempos según el alcance.'
-    }
-  ];
-
-  toggleFaq(index: number): void {
-    this.menuOpenFaq = this.menuOpenFaq === index ? -1 : index;
+  closeMenu(): void {
+    this.menuOpen = false;
   }
 }

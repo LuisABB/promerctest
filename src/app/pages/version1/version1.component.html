@@ -1,276 +1,260 @@
-<app-three-scene />
-<app-header />
+<div class="evo" #page [class.is-open]="menuOpen">
+  <div class="evo-grain" aria-hidden="true"></div>
 
-<main id="top" class="page">
-  <!-- HERO -->
-  <section class="hero section">
-    <div class="container hero__grid">
-      <div class="hero__copy reveal">
-        <div class="badge">
-          <span class="badge__dot"></span>
-          Últimos espacios de agenda disponibles en 2026
-        </div>
-        <h1 class="hero__title">
-          We're a <span>creative</span><br />
-          studio.
-        </h1>
-        <p class="hero__lead">
-          Somos un estudio creativo. Lo pensamos, lo creamos y lo producimos — estrategia, diseño y
-          producción audiovisual bajo una misma línea.
-        </p>
-        <div class="hero__actions">
-          <a class="btn btn--gold btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
-            Cotizar por WhatsApp
-          </a>
-          <a class="btn btn--ghost btn--lg" href="#servicios">Ver servicios</a>
-        </div>
-      </div>
-      <div class="hero__spacer" aria-hidden="true"></div>
-    </div>
-    <div class="container hero__tags">
-      <span>No fluff, just performance.</span>
-      <span>Rooted in Mexico, thinking globally.</span>
-      <span>Think big.</span>
-    </div>
-  </section>
-
-  <!-- PROBLEMA -->
-  <section class="section problema section--blur" id="problema">
-    <div class="section-blur" aria-hidden="true"></div>
-    <div class="container">
-      <p class="eyebrow">El problema</p>
-      <div class="problema__grid">
-        <h2 class="section-title">Muchas marcas quieren crecer, pero no logran contarse bien.</h2>
-        <div class="problema__right">
-          <p>
-            Comunican por impulso, cambian de dirección cada mes y terminan con piezas bonitas que no
-            dicen nada ni convierten.
-          </p>
-          <p>Nuestro propósito es simple: que ninguna gran visión se quede sin contarse bien.</p>
-          <div class="chip-row">
-            @for (card of problemCards; track card) {
-              <div class="chip">{{ card }}</div>
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SOLUCIÓN -->
-  <section class="section solucion" id="solucion">
-    <div class="container">
-      <p class="eyebrow">La solución</p>
-      <h2 class="section-title section-title--wide">
-        La ventaja Meibe: pensamos, creamos y producimos bajo una misma línea.
-      </h2>
-      <div class="card-grid card-grid--3">
-        @for (card of solutionCards; track card.title) {
-          <article class="glass-card glass-card--dots">
-            <h3>{{ card.title }}</h3>
-            <p>{{ card.text }}</p>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICIOS -->
-  <section class="section servicios" id="servicios">
-    <div class="container">
-      <p class="eyebrow">Servicios</p>
-      <h2 class="section-title">Dos áreas, un mismo estudio.</h2>
-      <div class="card-grid card-grid--2 servicios__grid">
-        <article class="service-card">
-          <p class="eyebrow">Agencia</p>
-          <h3>Marketing & Estrategia</h3>
-          <ul>
-            @for (item of agencyServices; track item) {
-              <li>{{ item }}</li>
-            }
-          </ul>
-        </article>
-        <article class="service-card">
-          <p class="eyebrow">Productora</p>
-          <h3>Producción Audiovisual</h3>
-          <ul>
-            @for (item of productionServices; track item) {
-              <li>{{ item }}</li>
-            }
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESO -->
-  <section class="section proceso" id="proceso">
-    <div class="container">
-      <p class="eyebrow">Cómo trabajamos</p>
-      <h2 class="section-title">Estrategia primero. Siempre.</h2>
-      <div class="card-grid card-grid--4">
-        @for (step of processSteps; track step.n) {
-          <article class="glass-card process-card">
-            <span class="process-card__n">{{ step.n }}</span>
-            <h3>{{ step.title }}</h3>
-            <p>{{ step.text }}</p>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- CASOS -->
-  <section class="section casos section--blur" id="casos">
-    <div class="section-blur" aria-hidden="true"></div>
-    <div class="container">
-      <p class="eyebrow">Casos de éxito</p>
-      <h2 class="section-title section-title--wide">
-        Transparencia total: te abrimos las carpetas.
-      </h2>
-      <p class="section-lead">
-        Damos acceso a las carpetas de clientes activos e inactivos, y a la carpeta de reportes
-        dentro de cada marca, con resultados reales de cada proyecto.
-      </p>
-      <div class="card-grid card-grid--3">
-        @for (item of cases; track item.title) {
-          <article class="glass-card case-card">
-            <h3>{{ item.title }}</h3>
-            <p>{{ item.text }}</p>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- BENEFICIOS -->
-  <section class="section beneficios" id="beneficios">
-    <div class="container beneficios__grid">
-      <div>
-        <p class="eyebrow">Beneficios</p>
-        <h2 class="section-title">Por qué Meibe<span class="gold-dot"></span></h2>
-        <p class="section-lead">No queremos que te vean. Queremos que te sientan.</p>
-      </div>
-      <div class="card-grid card-grid--2">
-        @for (b of benefits; track b.title) {
-          <article class="glass-card">
-            <h3>{{ b.title }}</h3>
-            <p>{{ b.text }}</p>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- PORTAFOLIO -->
-  <section class="section portafolio" id="portafolio">
-    <div class="container">
-      <p class="eyebrow">Portafolio</p>
-      <h2 class="section-title section-title--wide">Marcas y proyectos que ya se sienten.</h2>
-      <p class="section-lead">Trabajamos con giros donde el contenido mueve ventas de verdad:</p>
-      <div class="portfolio-grid">
-        @for (item of portfolio; track item; let i = $index) {
-          <article class="portfolio-card" [class.is-accent]="i === 2">
-            <span class="portfolio-card__n">0 {{ i + 1 }}</span>
-            <h3>{{ item }}</h3>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- PLANES -->
-  <section class="section planes" id="planes">
-    <div class="container">
-      <p class="eyebrow">Planes o cotización</p>
-      <h2 class="section-title section-title--wide">Cada marca cotiza distinto. Así de simple.</h2>
-      <div class="card-grid card-grid--3">
-        @for (plan of plans; track plan.title) {
-          <article class="glass-card plan-card" [class.is-featured]="plan.featured">
-            @if (plan.featured) {
-              <p class="eyebrow">Recomendado</p>
-            }
-            <h3>{{ plan.title }}</h3>
-            <p>{{ plan.text }}</p>
-            <a
-              class="btn"
-              [class.btn--gold]="plan.featured"
-              [class.btn--ghost]="!plan.featured"
-              [href]="whatsapp"
-              target="_blank"
-              rel="noopener"
-            >
-              Cotizar
-            </a>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="section faq section--blur" id="faq">
-    <div class="section-blur" aria-hidden="true"></div>
-    <div class="container faq__grid">
-      <div>
-        <p class="eyebrow">FAQ</p>
-        <h2 class="section-title">Dudas rápidas.</h2>
-      </div>
-      <div class="faq__list">
-        @for (item of faqs; track item.q; let i = $index) {
-          <div class="faq-item" [class.is-open]="menuOpenFaq === i">
-            <button type="button" class="faq-item__q" (click)="toggleFaq(i)">
-              <span>{{ item.q }}</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-            <div class="faq-item__a">
-              <p>{{ item.a }}</p>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA FINAL -->
-  <section class="section cta-final">
-    <div class="container cta-final__inner">
-      <h2 class="cta-final__title">Make it <span>Meibe.</span></h2>
-      <p>
-        Quedan últimos espacios de agenda en 2026. Cuéntanos qué quieres lograr y lo convertimos en
-        influencia real.
-      </p>
-      <a class="btn btn--gold btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
-        Escríbenos por WhatsApp
+  <header class="evo-header" [class.is-scrolled]="scrolled">
+    <a class="evo-logo" href="#top" (click)="closeMenu()">
+      meibe<span>✦</span>
+    </a>
+    <nav class="evo-nav" [class.is-open]="menuOpen" aria-label="Principal">
+      @for (link of nav; track link.href) {
+        <a [href]="link.href" (click)="closeMenu()">{{ link.label }}</a>
+      }
+      <a class="evo-btn evo-nav__cta" [href]="whatsapp" target="_blank" rel="noopener" (click)="closeMenu()">
+        Start a project
       </a>
-    </div>
-  </section>
+    </nav>
+    <a class="evo-btn evo-header__cta" [href]="whatsapp" target="_blank" rel="noopener">Start a project</a>
+    <button class="evo-burger" type="button" [attr.aria-expanded]="menuOpen" aria-label="Menú" (click)="toggleMenu()">
+      <span></span><span></span>
+    </button>
+  </header>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer__grid">
-      <div>
-        <div class="logo footer__logo">
-          <span class="logo__name">Meibe</span>
-          <span class="logo__tag">Creative Studio</span>
-        </div>
-        <p>
-          Estudio creativo mexicano. Estrategia, diseño y producción audiovisual bajo una misma
-          línea. Rooted in Mexico, thinking globally.
+  <main id="top">
+    <!-- HERO -->
+    <section class="evo-hero">
+      <div class="evo-hero__media" aria-hidden="true">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1600&q=70"
+        >
+          <source
+            src="https://assets.mixkit.co/videos/preview/mixkit-woman-turning-her-head-away-from-camera-32808-large.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="evo-hero__veil"></div>
+      </div>
+
+      <div class="evo-wrap evo-hero__content" data-reveal>
+        <p class="evo-kicker">We blend ✦ cutting-edge craft with timeless elegance</p>
+        <h1>
+          Design that<br />
+          grows with <span>your</span> brand.
+        </h1>
+        <p class="evo-lead">
+          Estudio creativo mexicano. Estrategia, contenido y producción audiovisual bajo una misma
+          línea — para marcas que quieren sentirse, no solo verse.
         </p>
-      </div>
-      <div class="footer__right">
-        <div class="footer__socials">
-          <a href="#" aria-label="Instagram">Instagram</a>
-          <a href="#" aria-label="TikTok">TikTok</a>
-          <a href="#" aria-label="Facebook">Facebook</a>
-          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <div class="evo-hero__actions">
+          <a class="evo-btn evo-btn--fill" [href]="whatsapp" target="_blank" rel="noopener">Start a project</a>
+          <a class="evo-link" href="#work">See our work →</a>
         </div>
-        <p class="footer__wa">WhatsApp: 56 3635 2382</p>
-        <p class="footer__copy">© 2026 Meibe Creative Studio</p>
       </div>
-    </div>
-  </footer>
-</main>
+
+      <div class="evo-hero__meta">
+        <span>meibe.</span>
+        <span>©2026</span>
+      </div>
+    </section>
+
+    <!-- STRIP VIDEOS -->
+    <section class="evo-strip" aria-label="Visual system">
+      @for (clip of strip; track clip.src; let i = $index) {
+        <article class="evo-strip__panel" [attr.data-reveal]="true" [style.--d]="i * 80 + 'ms'">
+          <video autoplay muted loop playsinline preload="metadata" [poster]="clip.poster">
+            <source [src]="clip.src" type="video/mp4" />
+          </video>
+        </article>
+      }
+    </section>
+
+    <!-- LOOKING -->
+    <section class="evo-banner">
+      <div class="evo-banner__media" aria-hidden="true">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1400&q=70"
+        >
+          <source
+            src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smart-watch-4288-large.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="evo-banner__tint"></div>
+      </div>
+      <p class="evo-banner__top" data-reveal>We're always looking for beautiful things</p>
+      <p class="evo-banner__bottom" data-reveal>Your brand deserves to grow.</p>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="evo-about" id="about">
+      <div class="evo-wrap">
+        <h2 class="evo-display" data-reveal>Discover<br /><span>who we are</span></h2>
+        <div class="evo-about__grid">
+          @for (v of values; track v.tag) {
+            <article class="evo-about__card" data-reveal>
+              <p class="evo-about__tag"><i>✦</i> {{ v.tag }}</p>
+              <p>{{ v.text }}</p>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="evo-services" id="services">
+      <div class="evo-wrap">
+        <div class="evo-services__head" data-reveal>
+          <p class="evo-kicker">Services</p>
+          <h2 class="evo-display">Think. Create.<br />Produce.</h2>
+        </div>
+        <div class="evo-services__list">
+          @for (s of services; track s.n) {
+            <article class="evo-service" data-reveal>
+              <span>{{ s.n }}</span>
+              <div>
+                <h3>{{ s.title }}</h3>
+                <p>{{ s.text }}</p>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- STATEMENT -->
+    <section class="evo-statement">
+      <div class="evo-statement__media" aria-hidden="true">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1600&q=70"
+        >
+          <source
+            src="https://assets.mixkit.co/videos/preview/mixkit-silhouette-of-a-man-walking-on-stairs-40887-large.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="evo-statement__veil"></div>
+      </div>
+      <div class="evo-wrap evo-statement__copy" data-reveal>
+        <p class="evo-kicker is-light">Looking for timelessness</p>
+        <h2>
+          We don't want people to just see your brand.<br />
+          <em>We want them to feel it.</em>
+        </h2>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="evo-work" id="work">
+      <div class="evo-wrap">
+        <div class="evo-work__head" data-reveal>
+          <p class="evo-kicker">Selected work</p>
+          <h2 class="evo-display">Work that <span>feels.</span></h2>
+        </div>
+        <div class="evo-work__grid">
+          <article class="evo-shot evo-shot--wide" data-reveal>
+            <img
+              src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1400&q=80"
+              alt="Restaurantes"
+              loading="lazy"
+            />
+            <div class="evo-shot__meta">
+              <p>Foto & video</p>
+              <h3>Restaurantes</h3>
+            </div>
+          </article>
+          <article class="evo-shot" data-reveal>
+            <img
+              src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=900&q=80"
+              alt="Beauty"
+              loading="lazy"
+            />
+            <div class="evo-shot__meta">
+              <p>Branding</p>
+              <h3>Beauty & Wellness</h3>
+            </div>
+          </article>
+          <article class="evo-shot" data-reveal>
+            <img
+              src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=900&q=80"
+              alt="Podcasts"
+              loading="lazy"
+            />
+            <div class="evo-shot__meta">
+              <p>Audio</p>
+              <h3>Podcasts</h3>
+            </div>
+          </article>
+          <article class="evo-shot evo-shot--wide" data-reveal>
+            <img
+              src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1400&q=80"
+              alt="Eventos"
+              loading="lazy"
+            />
+            <div class="evo-shot__meta">
+              <p>Cobertura</p>
+              <h3>Eventos sociales</h3>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORANGE PANEL -->
+    <section class="evo-orange">
+      <div class="evo-wrap evo-orange__grid">
+        <div data-reveal>
+          <p class="evo-kicker is-dark">Craft</p>
+          <h2 class="evo-display is-dark">
+            Timeless.<br />
+            Modern.<br />
+            High performance.
+          </h2>
+        </div>
+        <div class="evo-orange__copy" data-reveal>
+          <p>
+            One team. One line. More impact. Pensamos, creamos y producimos bajo el mismo techo —
+            sin tres proveedores, sin piezas desconectadas.
+          </p>
+          <a class="evo-btn evo-btn--dark" [href]="whatsapp" target="_blank" rel="noopener">
+            Hablar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="evo-contact" id="contact">
+      <div class="evo-wrap" data-reveal>
+        <p class="evo-kicker">Start a project</p>
+        <h2 class="evo-display">Make it <span>Meibe.</span></h2>
+        <p class="evo-lead">
+          Últimos espacios de agenda para 2026. Cuéntanos qué quieres construir.
+        </p>
+        <a class="evo-btn evo-btn--fill evo-btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
+          WhatsApp ↗
+        </a>
+      </div>
+      <footer class="evo-footer">
+        <div class="evo-wrap evo-footer__row">
+          <span>© 2026 Meibe Creative Studio</span>
+          <span>Rooted in Mexico, thinking globally.</span>
+          <span>Instagram · TikTok · LinkedIn</span>
+        </div>
+      </footer>
+    </section>
+  </main>
+</div>
