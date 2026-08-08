@@ -1,310 +1,147 @@
 <div class="v3" [class.is-open]="menuOpen">
-  <header class="v3-header">
-    <div class="v3-wrap v3-header__row">
-      <a class="v3-logo" href="#top" (click)="closeMenu()">meibe.</a>
-      <nav class="v3-nav" [class.is-open]="menuOpen" aria-label="Principal">
-        @for (link of nav; track link.href) {
-          <a [href]="link.href" (click)="closeMenu()">{{ link.label }}</a>
-        }
-      </nav>
-      <a class="v3-btn v3-header__cta" [href]="whatsapp" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-4 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-        Cotizar
+  <div class="v3-noise" aria-hidden="true"></div>
+  <div class="v3-grid" aria-hidden="true"></div>
+
+  <nav class="v3-nav" [class.is-scrolled]="scrolled">
+    <a class="v3-logo" href="#top" (click)="closeMenu()">MEIBE</a>
+    <div class="v3-nav__links" [class.is-open]="menuOpen">
+      @for (link of nav; track link.href) {
+        <a [href]="link.href" (click)="closeMenu()">{{ link.label }}</a>
+      }
+      <a class="v3-menu-btn v3-nav__mobile-cta" [href]="whatsapp" target="_blank" rel="noopener" (click)="closeMenu()">
+        Get in touch
       </a>
-      <button class="v3-burger" type="button" [attr.aria-expanded]="menuOpen" aria-label="Menú" (click)="toggleMenu()">
-        <span></span><span></span>
-      </button>
     </div>
-  </header>
+    <a class="v3-menu-btn v3-nav__cta" [href]="whatsapp" target="_blank" rel="noopener">Get in touch</a>
+    <button class="v3-burger" type="button" [attr.aria-expanded]="menuOpen" aria-label="Menú" (click)="toggleMenu()">
+      <span></span><span></span>
+    </button>
+  </nav>
 
   <main id="top">
-    <!-- HERO -->
     <section class="v3-hero">
-      <div class="v3-wrap v3-hero__layout">
-        <div class="v3-hero__content">
-          <p class="v3-eyebrow is-plain">• Creative Studio · Rooted in Mexico, thinking globally</p>
-          <h1 class="v3-hero__title">
-            <span class="v3-hero__front">We're a</span>
-            <span class="v3-hero__back">creative</span>
-            <span class="v3-hero__front">studio.</span>
-          </h1>
-          <p class="v3-hero__lead">
-            Pensamos, creamos y producimos bajo una misma línea. No queremos que te vean — queremos que
-            te sientan. <strong>Make it Meibe.</strong>
-          </p>
-          <div class="v3-hero__actions">
-            <a class="v3-btn v3-btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-4 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-              Cotiza tu proyecto
-            </a>
-            <a class="v3-btn v3-btn--ghost v3-btn--lg" href="#servicios">Ver servicios ↗</a>
-          </div>
+      <div class="v3-hero__content">
+        <div class="v3-eyebrow">
+          <span>Creative Studio · Mexico</span>
+          <span>Scroll to explore ↓</span>
         </div>
-        <div class="v3-hero__fx" aria-hidden="true">
-          <app-v3-three-scene />
+        <h1 class="v3-hero__title">meibe<span>.</span></h1>
+        <div class="v3-hero__bottom">
+          <p class="v3-hero__copy">
+            We're a creative studio. We think it, create it, and produce it — under one line.
+          </p>
+          <div class="v3-scroll">Rooted in Mexico, thinking globally.</div>
         </div>
       </div>
     </section>
 
-    <!-- MARQUEE -->
-    <div class="v3-marquee" aria-hidden="true">
-      <div class="v3-marquee__track">
-        @for (item of marquee; track item) {
-          <span>{{ item }}</span><span class="v3-marquee__star">✦</span>
-        }
-        @for (item of marquee; track item + '-b') {
-          <span>{{ item }}</span><span class="v3-marquee__star">✦</span>
-        }
-      </div>
-    </div>
-
-    <!-- PROBLEMA -->
-    <section class="v3-section">
-      <div class="v3-wrap">
-        <p class="v3-eyebrow">El problema</p>
-        <h2 class="v3-display">
-          Muchas marcas tienen una gran visión, pero
-          <span class="is-mute">no logran</span>
-          <span class="is-mute">comunicarse de forma</span>
-          coherente ni convertir esa comunicación en resultados.
-        </h2>
-        <p class="v3-lead v3-lead--narrow">
-          El talento existe. El producto existe. Lo que falta es una línea que una estrategia, diseño
-          y producción para que todo se sienta —y venda— igual de bien.
+    <section class="v3-intro">
+      <div><div class="v3-label">01 / About Meibe</div></div>
+      <div>
+        <h2>We don't want people to just <em>see</em> your brand.</h2>
+        <p>
+          Queremos que la sientan. Estrategia, creatividad y producción para marcas que quieren
+          crecer y comunicar con intención.
         </p>
-      </div>
-    </section>
-
-    <!-- SOLUCIÓN -->
-    <section class="v3-section">
-      <div class="v3-wrap v3-split">
-        <div>
-          <p class="v3-eyebrow">La solución</p>
-          <h2 class="v3-display is-gold">La ventaja Meibe</h2>
-          <p class="v3-lead">
-            Pensamos, creamos y producimos bajo una misma línea. El cliente no coordina tres
-            proveedores distintos —y por eso todo se siente coherente.
-          </p>
-          <p class="v3-lead">Que ninguna gran visión se quede sin contarse bien.</p>
-        </div>
-        <div class="v3-cards-2x2">
-          @for (c of solutionCards; track c.title) {
-            <article class="v3-card">
-              <span class="v3-card__icon" aria-hidden="true">{{ c.icon }}</span>
-              <h3>{{ c.title }}</h3>
-              <p>{{ c.text }}</p>
-            </article>
-          }
+        <div class="v3-buttons">
+          <a class="v3-btn" href="#work">Our work</a>
+          <a class="v3-btn" href="#contact">Let's talk</a>
         </div>
       </div>
     </section>
 
-    <!-- SERVICIOS -->
-    <section class="v3-section" id="servicios">
-      <div class="v3-wrap">
-        <p class="v3-eyebrow">Servicios</p>
-        <h2 class="v3-display">Dos áreas, un mismo estudio</h2>
-        <p class="v3-lead">
-          Agencia de marketing y productora audiovisual, trabajando bajo la misma línea creativa.
-        </p>
-        <div class="v3-areas">
-          <article class="v3-area">
-            <p class="v3-eyebrow is-plain">Agencia</p>
-            <h3>Marketing & Estrategia</h3>
-            <p>Pensamos primero: el porqué, el para quién y el qué se quiere lograr.</p>
-            <div class="v3-tags">
-              @for (t of agencyTags; track t) {
-                <span>{{ t }}</span>
-              }
-            </div>
-          </article>
-          <article class="v3-area">
-            <p class="v3-eyebrow is-plain">Productora</p>
-            <h3>Producción Audiovisual</h3>
-            <p>Pensamos como cineastas: ritmo, narrativa y emoción en cada pieza.</p>
-            <div class="v3-tags">
-              @for (t of productionTags; track t) {
-                <span>{{ t }}</span>
-              }
-            </div>
-          </article>
-        </div>
+    <section class="v3-services" id="services">
+      <div class="v3-services__head">
+        <div class="v3-label">02 / What we do</div>
+        <div class="v3-label">Think · Create · Produce</div>
       </div>
-    </section>
-
-    <!-- PROCESO -->
-    <section class="v3-section" id="proceso">
-      <div class="v3-wrap">
-        <p class="v3-eyebrow">Cómo trabajamos</p>
-        <h2 class="v3-display">Actuamos como socios, no como proveedores</h2>
-        <div class="v3-process">
-          @for (step of process; track step.n) {
-            <article>
-              <span>{{ step.n }}</span>
-              <h3>{{ step.title }}</h3>
-              <p>{{ step.text }}</p>
-            </article>
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- CASOS -->
-    <section class="v3-section" id="casos">
-      <div class="v3-wrap">
-        <div class="v3-casos-head">
-          <div>
-            <p class="v3-eyebrow">Casos de éxito</p>
-            <h2 class="v3-display">
-              Marcas que ya<br />no solo se ven<br />—se sienten
-            </h2>
-          </div>
-          <p class="v3-lead">
-            Damos acceso a carpetas y reportes de clientes activos: alcance, percepción y conversión,
-            marca por marca.
-          </p>
-        </div>
-        <div class="v3-stats">
-          @for (s of caseStats; track s.text) {
-            <article class="v3-card">
-              <p class="v3-stats__value">
-                <strong>{{ s.value }}</strong>
-                @if (s.unit) {
-                  <span>{{ s.unit }}</span>
-                }
-              </p>
-              <p>{{ s.text }}</p>
-            </article>
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- BENEFICIOS -->
-    <section class="v3-section">
-      <div class="v3-wrap v3-split">
-        <div>
-          <p class="v3-eyebrow">Beneficios</p>
-          <h2 class="v3-display">Por qué contratar a Meibe</h2>
-          <p class="v3-eyebrow is-plain">Cliente ideal</p>
-          <ul class="v3-list">
-            @for (item of idealClients; track item) {
-              <li>{{ item }}</li>
-            }
-          </ul>
-        </div>
-        <div class="v3-cards-2x2">
-          @for (b of benefits; track b.title) {
-            <article class="v3-card">
-              <h3>{{ b.title }}</h3>
-              <p>{{ b.text }}</p>
-            </article>
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- PORTAFOLIO -->
-    <section class="v3-section" id="portafolio">
-      <div class="v3-wrap">
-        <p class="v3-eyebrow">Portafolio</p>
-        <h2 class="v3-display">Craft que se siente en cada pieza</h2>
-        <div class="v3-portfolio">
-          @for (item of portfolio; track item.title) {
-            <article class="v3-shot" [class.is-wide]="item.wide">
-              <img [src]="item.image" [alt]="item.title" loading="lazy" />
-              <div class="v3-shot__meta">
-                <p>{{ item.tag }}</p>
-                <h3>{{ item.title }}</h3>
-              </div>
-            </article>
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- PLANES -->
-    <section class="v3-section">
-      <div class="v3-wrap v3-split v3-split--plans">
-        <div>
-          <p class="v3-eyebrow">Planes o cotización</p>
-          <h2 class="v3-display">
-            Cada marca es distinta.<br />Tu cotización también.
-          </h2>
-          <p class="v3-lead">
-            No trabajamos con plantillas. Armamos el alcance según tu objetivo —marketing, producción
-            o todo bajo un mismo techo— y te decimos con claridad qué esperar.
-          </p>
-        </div>
-        <aside class="v3-agenda">
-          <span class="v3-pill">Agenda 2026</span>
-          <h3>Últimos espacios disponibles para 2026</h3>
-          <p>
-            Trabajamos con un número limitado de marcas para cuidar el craft. Reserva el tuyo y
-            platiquemos tu proyecto.
-          </p>
-          <a class="v3-btn v3-btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
-            Solicitar cotización ↗
+      <h2>Servicios<br />sin fronteras.</h2>
+      <div class="v3-service-list">
+        @for (item of services; track item; let i = $index) {
+          <a class="v3-service" [href]="whatsapp" target="_blank" rel="noopener">
+            <small>{{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}</small>
+            <span>{{ item }}</span>
+            <span aria-hidden="true">↗</span>
           </a>
-        </aside>
+        }
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="v3-section" id="faq">
-      <div class="v3-wrap v3-faq">
-        <p class="v3-eyebrow">FAQ</p>
-        <h2 class="v3-display is-gold">Preguntas frecuentes</h2>
-        <div class="v3-faq__list">
-          @for (item of faqs; track item.q; let i = $index) {
-            <div class="v3-faq__item" [class.is-open]="openFaq === i">
-              <button type="button" (click)="toggleFaq(i)">
-                <span>{{ item.q }}</span>
-                <i aria-hidden="true">{{ openFaq === i ? '−' : '+' }}</i>
-              </button>
-              <div class="v3-faq__a"><p>{{ item.a }}</p></div>
-            </div>
-          }
+    <section class="v3-work" id="work">
+      <div class="v3-work__head">
+        <div class="v3-label">03 / Selected work</div>
+        <a class="v3-btn" href="#contact">See all projects</a>
+      </div>
+      <h2>Work that<br /><em>feels.</em></h2>
+      <div class="v3-projects">
+        <article class="v3-project">
+          <div class="v3-project__art art1"></div>
+          <div class="v3-project__overlay">
+            <div class="v3-project__name">Brand Experience / 01</div>
+            <div class="v3-project__meta">Branding · Digital · Content</div>
+          </div>
+        </article>
+        <article class="v3-project">
+          <div class="v3-project__art art2"></div>
+          <div class="v3-project__overlay">
+            <div class="v3-project__name">Creative Direction / 02</div>
+            <div class="v3-project__meta">Campaign · Audiovisual</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="v3-statement">
+      <div class="v3-statement__inner">
+        <div class="v3-label">04 / The Meibe advantage</div>
+        <h2>One team.<br /><em>One line.</em><br />More impact.</h2>
+        <p>
+          Think, create and produce under the same roof. No three suppliers. No disconnected pieces.
+          One strategic direction from the first idea to the final frame.
+        </p>
+      </div>
+    </section>
+
+    <section class="v3-benefits">
+      <div class="v3-label">05 / Why Meibe</div>
+      <div class="v3-benefit-grid">
+        @for (b of benefits; track b.n) {
+          <article class="v3-benefit">
+            <div class="v3-benefit__num">{{ b.n }}</div>
+            <h3>{{ b.title }}</h3>
+            <p>{{ b.text }}</p>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section class="v3-testimonial">
+      <div class="v3-quote">
+        <div class="v3-label">06 / What clients say</div>
+        <blockquote>“No queremos que te vean. Queremos que te sientan.”</blockquote>
+        <cite>Make it Meibe.</cite>
+      </div>
+    </section>
+
+    <section class="v3-contact" id="contact">
+      <div class="v3-contact__top">
+        <div>
+          <div class="v3-label">07 / Start a project</div>
+          <h2>Make it<br />Meibe.</h2>
+        </div>
+        <div class="v3-contact__copy">
+          Últimos espacios de agenda disponibles para 2026.<br />
+          Cuéntanos qué quieres construir y hablemos.
+          <br />
+          <a class="v3-contact__btn" [href]="whatsapp" target="_blank" rel="noopener">WhatsApp ↗</a>
         </div>
       </div>
-    </section>
-
-    <!-- CTA FINAL -->
-    <section class="v3-finale">
-      <div class="v3-wrap is-center">
-        <p class="v3-finale__kicker">Make it Meibe</p>
-        <h2>
-          No queremos<br />que te vean.<br />Queremos<br />que te sientan.
-        </h2>
-        <a class="v3-btn v3-btn--dark v3-btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-4 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-          Hablemos por WhatsApp
-        </a>
-        <p class="v3-finale__note">Últimos espacios de agenda disponibles para 2026.</p>
-      </div>
+      <div class="v3-footer-logo" aria-hidden="true">MEIBE</div>
+      <footer class="v3-footer">
+        <span>© 2026 Meibe Creative Studio</span>
+        <span>Instagram · TikTok · LinkedIn</span>
+        <span>Rooted in Mexico, thinking globally.</span>
+      </footer>
     </section>
   </main>
-
-  <footer class="v3-footer">
-    <div class="v3-wrap v3-footer__grid">
-      <div>
-        <p class="v3-logo">meibe.</p>
-        <p>
-          Meibe Creative Studio — estrategia, diseño y producción audiovisual bajo una misma línea.
-          Rooted in Mexico, thinking globally.
-        </p>
-      </div>
-      <div>
-        <p class="v3-footer__label">Síguenos</p>
-        <a href="#">Instagram</a>
-        <a href="#">TikTok</a>
-        <a href="#">Facebook</a>
-        <a href="#">LinkedIn</a>
-      </div>
-    </div>
-    <div class="v3-wrap v3-footer__bottom">
-      <p>© 2026 Meibe Creative Studio. Todos los derechos reservados.</p>
-      <p>We think it, create it, and produce it.</p>
-    </div>
-  </footer>
 </div>
