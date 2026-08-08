@@ -6,10 +6,6 @@
         @for (link of nav; track link.href) {
           <a [href]="link.href" (click)="closeMenu()">{{ link.label }}</a>
         }
-        <a class="v3-btn v3-nav__cta" [href]="whatsapp" target="_blank" rel="noopener" (click)="closeMenu()">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-4 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-          Cotizar
-        </a>
       </nav>
       <a class="v3-btn v3-header__cta" [href]="whatsapp" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-4 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -24,22 +20,28 @@
   <main id="top">
     <!-- HERO -->
     <section class="v3-hero">
-      <div class="v3-hero__fx"><app-v3-three-scene /></div>
-      <div class="v3-wrap v3-hero__content">
-        <p class="v3-eyebrow is-plain">• Creative Studio · Rooted in Mexico, thinking globally</p>
-        <h1 class="v3-hero__title">
-          We're a<br /><span>creative</span><br />studio.
-        </h1>
-        <p class="v3-hero__lead">
-          Pensamos, creamos y producimos bajo una misma línea. No queremos que te vean —queremos que
-          te sientan. <strong>Make it Meibe.</strong>
-        </p>
-        <div class="v3-hero__actions">
-          <a class="v3-btn v3-btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-4 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            Cotiza tu proyecto
-          </a>
-          <a class="v3-btn v3-btn--ghost v3-btn--lg" href="#servicios">Ver servicios ↗</a>
+      <div class="v3-wrap v3-hero__layout">
+        <div class="v3-hero__content">
+          <p class="v3-eyebrow is-plain">• Creative Studio · Rooted in Mexico, thinking globally</p>
+          <h1 class="v3-hero__title">
+            <span class="v3-hero__front">We're a</span>
+            <span class="v3-hero__back">creative</span>
+            <span class="v3-hero__front">studio.</span>
+          </h1>
+          <p class="v3-hero__lead">
+            Pensamos, creamos y producimos bajo una misma línea. No queremos que te vean — queremos que
+            te sientan. <strong>Make it Meibe.</strong>
+          </p>
+          <div class="v3-hero__actions">
+            <a class="v3-btn v3-btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-4 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+              Cotiza tu proyecto
+            </a>
+            <a class="v3-btn v3-btn--ghost v3-btn--lg" href="#servicios">Ver servicios ↗</a>
+          </div>
+        </div>
+        <div class="v3-hero__fx" aria-hidden="true">
+          <app-v3-three-scene />
         </div>
       </div>
     </section>

@@ -75,10 +75,6 @@
       color: var(--v3-text);
     }
   }
-
-  &__cta {
-    display: none;
-  }
 }
 
 .v3-burger {
@@ -217,18 +213,35 @@
   min-height: calc(100vh - var(--version-bar-h) - 4.4rem);
   display: flex;
   align-items: center;
-  padding: 3.5rem 0 4.5rem;
+  padding: 2.5rem 0 3.5rem;
+  overflow: hidden;
 
-  &__fx {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
+  &__layout {
+    position: relative;
+    width: min(1140px, calc(100% - 2.5rem));
+    margin-inline: auto;
+    min-height: calc(100vh - var(--version-bar-h) - 8rem);
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: center;
   }
 
   &__content {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     max-width: 34rem;
+    padding-right: 1rem;
+  }
+
+  &__fx {
+    position: absolute;
+    right: -4%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(48vw, 540px);
+    height: min(62vh, 520px);
+    z-index: 2;
+    pointer-events: none;
   }
 
   &__title {
@@ -238,13 +251,24 @@
     font-size: clamp(3rem, 8vw, 5.6rem);
     line-height: 0.95;
     letter-spacing: -0.04em;
+    display: grid;
+  }
 
-    span {
-      color: rgba(243, 240, 230, 0.55);
-    }
+  &__front {
+    position: relative;
+    z-index: 3;
+    color: var(--v3-text);
+  }
+
+  &__back {
+    position: relative;
+    z-index: 1;
+    color: rgba(243, 240, 230, 0.42);
   }
 
   &__lead {
+    position: relative;
+    z-index: 3;
     margin: 0 0 1.75rem;
     max-width: 28rem;
     color: rgba(243, 240, 230, 0.82);
@@ -256,6 +280,8 @@
   }
 
   &__actions {
+    position: relative;
+    z-index: 3;
     display: flex;
     flex-wrap: wrap;
     gap: 0.8rem;
@@ -770,17 +796,13 @@
 }
 
 @media (max-width: 720px) {
-  .v3-header__cta {
-    display: none;
-  }
-
   .v3-burger {
     display: flex;
     justify-self: end;
   }
 
   .v3-header__row {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
   }
 
   .v3-nav {
@@ -806,11 +828,22 @@
       font-size: 1.15rem;
       color: var(--v3-text);
     }
+  }
 
-    &__cta {
-      display: inline-flex;
-      margin-top: 0.4rem;
-    }
+  .v3-hero__layout {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .v3-hero__fx {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    height: 320px;
+    order: -1;
+    margin-bottom: 0.5rem;
   }
 
   .v3-cards-2x2,
