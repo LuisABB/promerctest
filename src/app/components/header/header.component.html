@@ -1,0 +1,33 @@
+<header class="site-header" [class.is-scrolled]="scrolled" [class.is-open]="menuOpen">
+  <div class="site-header__inner">
+    <a class="logo" href="#top" (click)="closeMenu()">
+      <span class="logo__name">Meibe</span>
+      <span class="logo__tag">Creative Studio</span>
+    </a>
+
+    <nav class="nav" [class.is-open]="menuOpen" aria-label="Principal">
+      @for (link of links; track link.href) {
+        <a [href]="link.href" (click)="closeMenu()">{{ link.label }}</a>
+      }
+      <a class="btn btn--gold nav__cta-mobile" href="https://wa.me/525636352382" target="_blank" rel="noopener" (click)="closeMenu()">
+        Hablemos
+      </a>
+    </nav>
+
+    <a class="btn btn--gold site-header__cta" href="https://wa.me/525636352382" target="_blank" rel="noopener">
+      Hablemos
+    </a>
+
+    <button
+      class="burger"
+      type="button"
+      [attr.aria-expanded]="menuOpen"
+      aria-label="Abrir menú"
+      (click)="toggleMenu()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>

@@ -1,106 +1,276 @@
-<canvas #fxCanvas class="fx-canvas" aria-hidden="true"></canvas>
+<app-three-scene />
+<app-header />
 
-<div class="background-atmosphere" aria-hidden="true"></div>
-
-<header class="topbar">
-  <a class="brand" href="#inicio" aria-label="PROMERC Inicio">
-    <span class="brand-main">PROMER</span><span class="brand-accent">C</span>
-  </a>
-
-  <nav class="nav-links" aria-label="Navegacion principal">
-    <a href="#casos">CASOS DE EXITO</a>
-    <a href="https://mail.promerc.com.mx:2096/">WEBMAIL</a>
-    <a href="#servicios">SERVICIOS</a>
-    <!--<a href="#stand-3d">Stand 3D</a>-->
-    <a href="#contacto">CONTACTO</a>
-
-    <details class="jobs-menu">
-      <summary>BOLSA DE TRABAJO</summary>
-      <div class="jobs-dropdown">
-        <a href="https://www.promerc.com.mx/bolsa-de-trabajo" target="_blank" rel="noopener">DISPONIBLES</a>
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener">FACEBOOK</a>
-        <a href="https://www.computrabajo.com.mx/" target="_blank" rel="noopener">COMPU TRABAJO</a>
+<main id="top" class="page">
+  <!-- HERO -->
+  <section class="hero section">
+    <div class="container hero__grid">
+      <div class="hero__copy reveal">
+        <div class="badge">
+          <span class="badge__dot"></span>
+          Últimos espacios de agenda disponibles en 2026
+        </div>
+        <h1 class="hero__title">
+          We're a <span>creative</span><br />
+          studio.
+        </h1>
+        <p class="hero__lead">
+          Somos un estudio creativo. Lo pensamos, lo creamos y lo producimos — estrategia, diseño y
+          producción audiovisual bajo una misma línea.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--gold btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
+            Cotizar por WhatsApp
+          </a>
+          <a class="btn btn--ghost btn--lg" href="#servicios">Ver servicios</a>
+        </div>
       </div>
-    </details>
-  </nav>
-
-  <a class="cta-button" href="#contacto">Cotizar</a>
-</header>
-
-<main id="inicio">
-  <section class="hero section-card" style="--depth:0.2;">
-    <span class="tagline">42 ANOS DE EXITOS JUNTOS</span>
-    <h1>
-      El punto de venta,<br />
-      <span class="gradient-text">en tres dimensiones.</span>
-    </h1>
-    <p>
-      Promotoria, trade marketing y experiencias de marca con cobertura nacional.
-      Si creces tu, crecemos nosotros.
-    </p>
-
-    <div class="hero-actions">
-      <a class="cta-button" href="#servicios">Ver servicios</a>
+      <div class="hero__spacer" aria-hidden="true"></div>
+    </div>
+    <div class="container hero__tags">
+      <span>No fluff, just performance.</span>
+      <span>Rooted in Mexico, thinking globally.</span>
+      <span>Think big.</span>
     </div>
   </section>
 
-    <section id="servicios" class="content-block">
-    <h2>Servicios</h2>
-    <p class="lead">Un ecosistema completo para activar tu marca desde la estrategia hasta el anaquel.</p>
+  <!-- PROBLEMA -->
+  <section class="section problema section--blur" id="problema">
+    <div class="section-blur" aria-hidden="true"></div>
+    <div class="container">
+      <p class="eyebrow">El problema</p>
+      <div class="problema__grid">
+        <h2 class="section-title">Muchas marcas quieren crecer, pero no logran contarse bien.</h2>
+        <div class="problema__right">
+          <p>
+            Comunican por impulso, cambian de dirección cada mes y terminan con piezas bonitas que no
+            dicen nada ni convierten.
+          </p>
+          <p>Nuestro propósito es simple: que ninguna gran visión se quede sin contarse bien.</p>
+          <div class="chip-row">
+            @for (card of problemCards; track card) {
+              <div class="chip">{{ card }}</div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <div class="service-grid">
-      @for (service of services; track service.id) {
-        <article class="service-card section-card" style="--depth:0.16;">
-          <span class="index">{{ service.id }}</span>
-          <h3>{{ service.title }}</h3>
-          <p>{{ service.description }}</p>
+  <!-- SOLUCIÓN -->
+  <section class="section solucion" id="solucion">
+    <div class="container">
+      <p class="eyebrow">La solución</p>
+      <h2 class="section-title section-title--wide">
+        La ventaja Meibe: pensamos, creamos y producimos bajo una misma línea.
+      </h2>
+      <div class="card-grid card-grid--3">
+        @for (card of solutionCards; track card.title) {
+          <article class="glass-card glass-card--dots">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.text }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="section servicios" id="servicios">
+    <div class="container">
+      <p class="eyebrow">Servicios</p>
+      <h2 class="section-title">Dos áreas, un mismo estudio.</h2>
+      <div class="card-grid card-grid--2 servicios__grid">
+        <article class="service-card">
+          <p class="eyebrow">Agencia</p>
+          <h3>Marketing & Estrategia</h3>
+          <ul>
+            @for (item of agencyServices; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
         </article>
-      }
-    </div>
-  </section>
-
-    <section class="content-block">
-    <h2>Testimoniales</h2>
-    <div class="testimonials-grid">
-      @for (item of testimonials; track item.name) {
-        <article class="testimonial-card section-card" style="--depth:0.12;">
-          <p class="quote">"{{ item.quote }}"</p>
-          <h3>{{ item.name }}</h3>
-          <span>{{ item.company }}</span>
+        <article class="service-card">
+          <p class="eyebrow">Productora</p>
+          <h3>Producción Audiovisual</h3>
+          <ul>
+            @for (item of productionServices; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
         </article>
-      }
+      </div>
     </div>
   </section>
 
-  <section class="content-block" aria-label="Algunos hitos">
-    <h2>ALGUNOS HITOS</h2>
-    <div class="metrics">
-      @for (item of metrics; track item.label) {
-        <article class="metric-card section-card" style="--depth:0.18;">
-          <h2>{{ item.value }}</h2>
-          <p>{{ item.label }}</p>
-        </article>
-      }
+  <!-- PROCESO -->
+  <section class="section proceso" id="proceso">
+    <div class="container">
+      <p class="eyebrow">Cómo trabajamos</p>
+      <h2 class="section-title">Estrategia primero. Siempre.</h2>
+      <div class="card-grid card-grid--4">
+        @for (step of processSteps; track step.n) {
+          <article class="glass-card process-card">
+            <span class="process-card__n">{{ step.n }}</span>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.text }}</p>
+          </article>
+        }
+      </div>
     </div>
   </section>
 
-
-  <section id="casos" class="content-block">
-    <h2>Casos de exito</h2>
-    <div class="cases-grid">
-      @for (item of cases; track item) {
-        <article class="case-card section-card" style="--depth:0.14;">
-          <p>{{ item }}</p>
-        </article>
-      }
+  <!-- CASOS -->
+  <section class="section casos section--blur" id="casos">
+    <div class="section-blur" aria-hidden="true"></div>
+    <div class="container">
+      <p class="eyebrow">Casos de éxito</p>
+      <h2 class="section-title section-title--wide">
+        Transparencia total: te abrimos las carpetas.
+      </h2>
+      <p class="section-lead">
+        Damos acceso a las carpetas de clientes activos e inactivos, y a la carpeta de reportes
+        dentro de cada marca, con resultados reales de cada proyecto.
+      </p>
+      <div class="card-grid card-grid--3">
+        @for (item of cases; track item.title) {
+          <article class="glass-card case-card">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
+          </article>
+        }
+      </div>
     </div>
   </section>
 
-  <section id="contacto" class="contact-card section-card" style="--depth:0.24;">
-    <h2>
-      Listo para <span class="gradient-text">crecer juntos</span>?
-    </h2>
-    <p>Cuentanos tu reto en el punto de venta y armamos una propuesta a la medida.</p>
-    <a class="cta-button" href="https://48e47dfd.portafolio-85e.pages.dev/">Solicitar cotizacion</a>
+  <!-- BENEFICIOS -->
+  <section class="section beneficios" id="beneficios">
+    <div class="container beneficios__grid">
+      <div>
+        <p class="eyebrow">Beneficios</p>
+        <h2 class="section-title">Por qué Meibe<span class="gold-dot"></span></h2>
+        <p class="section-lead">No queremos que te vean. Queremos que te sientan.</p>
+      </div>
+      <div class="card-grid card-grid--2">
+        @for (b of benefits; track b.title) {
+          <article class="glass-card">
+            <h3>{{ b.title }}</h3>
+            <p>{{ b.text }}</p>
+          </article>
+        }
+      </div>
+    </div>
   </section>
+
+  <!-- PORTAFOLIO -->
+  <section class="section portafolio" id="portafolio">
+    <div class="container">
+      <p class="eyebrow">Portafolio</p>
+      <h2 class="section-title section-title--wide">Marcas y proyectos que ya se sienten.</h2>
+      <p class="section-lead">Trabajamos con giros donde el contenido mueve ventas de verdad:</p>
+      <div class="portfolio-grid">
+        @for (item of portfolio; track item; let i = $index) {
+          <article class="portfolio-card" [class.is-accent]="i === 2">
+            <span class="portfolio-card__n">0 {{ i + 1 }}</span>
+            <h3>{{ item }}</h3>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANES -->
+  <section class="section planes" id="planes">
+    <div class="container">
+      <p class="eyebrow">Planes o cotización</p>
+      <h2 class="section-title section-title--wide">Cada marca cotiza distinto. Así de simple.</h2>
+      <div class="card-grid card-grid--3">
+        @for (plan of plans; track plan.title) {
+          <article class="glass-card plan-card" [class.is-featured]="plan.featured">
+            @if (plan.featured) {
+              <p class="eyebrow">Recomendado</p>
+            }
+            <h3>{{ plan.title }}</h3>
+            <p>{{ plan.text }}</p>
+            <a
+              class="btn"
+              [class.btn--gold]="plan.featured"
+              [class.btn--ghost]="!plan.featured"
+              [href]="whatsapp"
+              target="_blank"
+              rel="noopener"
+            >
+              Cotizar
+            </a>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq section--blur" id="faq">
+    <div class="section-blur" aria-hidden="true"></div>
+    <div class="container faq__grid">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 class="section-title">Dudas rápidas.</h2>
+      </div>
+      <div class="faq__list">
+        @for (item of faqs; track item.q; let i = $index) {
+          <div class="faq-item" [class.is-open]="menuOpenFaq === i">
+            <button type="button" class="faq-item__q" (click)="toggleFaq(i)">
+              <span>{{ item.q }}</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="faq-item__a">
+              <p>{{ item.a }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section cta-final">
+    <div class="container cta-final__inner">
+      <h2 class="cta-final__title">Make it <span>Meibe.</span></h2>
+      <p>
+        Quedan últimos espacios de agenda en 2026. Cuéntanos qué quieres lograr y lo convertimos en
+        influencia real.
+      </p>
+      <a class="btn btn--gold btn--lg" [href]="whatsapp" target="_blank" rel="noopener">
+        Escríbenos por WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <div class="logo footer__logo">
+          <span class="logo__name">Meibe</span>
+          <span class="logo__tag">Creative Studio</span>
+        </div>
+        <p>
+          Estudio creativo mexicano. Estrategia, diseño y producción audiovisual bajo una misma
+          línea. Rooted in Mexico, thinking globally.
+        </p>
+      </div>
+      <div class="footer__right">
+        <div class="footer__socials">
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="TikTok">TikTok</a>
+          <a href="#" aria-label="Facebook">Facebook</a>
+          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+        <p class="footer__wa">WhatsApp: 56 3635 2382</p>
+        <p class="footer__copy">© 2026 Meibe Creative Studio</p>
+      </div>
+    </div>
+  </footer>
 </main>
