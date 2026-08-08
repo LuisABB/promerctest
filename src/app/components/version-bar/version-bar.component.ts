@@ -12,6 +12,6 @@ export class VersionBarComponent {
   readonly versions = [
     { path: '/v1', label: 'Versión 1', ready: true },
     { path: '/v2', label: 'Versión 2', ready: true },
-    { path: '/v3', label: 'Versión 3', ready: false }
+    { path: '/v3', label: 'Versión 3', ready: true }
   ];
 }
