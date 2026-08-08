@@ -289,6 +289,126 @@
       </div>
     </section>
 
+    <!-- PHONE / SOCIAL CAROUSEL -->
+    <section class="evo-phone" aria-label="Social work" data-reveal>
+      <div class="evo-phone__bg" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=70"
+          alt=""
+        />
+      </div>
+
+      <div class="evo-phone__stage">
+        @for (post of phonePosts; track $index; let i = $index) {
+          @if (phoneSlot(i) !== null) {
+            <article
+              class="phone-card"
+              [class.is-center]="phoneSlot(i) === 0"
+              [class.is-left]="phoneSlot(i) === -1"
+              [class.is-right]="phoneSlot(i) === 1"
+              [style.z-index]="phoneSlot(i) === 0 ? 3 : 1"
+            >
+              <header class="phone-card__bar">
+                <div class="phone-card__user">
+                  <span class="phone-card__avatar" aria-hidden="true">I</span>
+                  <span>meibe.studio</span>
+                </div>
+                <span class="phone-card__more" aria-hidden="true">⋯</span>
+              </header>
+
+              <div class="phone-card__viewport">
+                <div class="phone-card__scroll" [class.is-scrolling]="phoneSlot(i) === 0">
+                  @switch (post.kind) {
+                    @case ('growth') {
+                      <div class="phone-feed phone-feed--growth">
+                        <div class="phone-feed__row">
+                          <div class="phone-feed__copy">
+                            <p class="phone-feed__brand">MEIBE</p>
+                            <span class="phone-feed__pill">{{ post.tag }}</span>
+                            <h3>{{ post.title }}</h3>
+                          </div>
+                          <img [src]="post.image" alt="" loading="lazy" />
+                        </div>
+                        <div class="phone-feed__row">
+                          <img [src]="post.image2" alt="" loading="lazy" />
+                          <div class="phone-feed__stat">
+                            <strong>{{ post.stat }}</strong>
+                            <span>{{ post.range }}</span>
+                          </div>
+                        </div>
+                        <div class="phone-feed__extra">
+                          <img [src]="post.image" alt="" loading="lazy" />
+                          <img [src]="post.image2" alt="" loading="lazy" />
+                        </div>
+                      </div>
+                    }
+                    @case ('feature') {
+                      <div class="phone-feed phone-feed--feature">
+                        <div class="phone-feed__hero-text">
+                          <h3>{{ post.title }}</h3>
+                        </div>
+                        <img [src]="post.image" alt="" loading="lazy" />
+                        <p class="phone-feed__caption">{{ post.caption }}</p>
+                        <img [src]="post.image" alt="" loading="lazy" />
+                      </div>
+                    }
+                    @case ('agency') {
+                      <div class="phone-feed phone-feed--agency">
+                        <div class="phone-feed__cover" [style.background-image]="'url(' + post.image + ')'">
+                          <h3>{{ post.title }}</h3>
+                        </div>
+                        <img [src]="post.image" alt="" loading="lazy" />
+                        <div class="phone-feed__cover phone-feed__cover--dark">
+                          <p class="phone-feed__brand">MEIBE</p>
+                          <h3>Work that feels.</h3>
+                        </div>
+                      </div>
+                    }
+                    @default {
+                      <div class="phone-feed phone-feed--website">
+                        <div class="phone-feed__grid4">
+                          <div class="phone-feed__tile phone-feed__tile--text">
+                            <h3>{{ post.title }}</h3>
+                          </div>
+                          <img [src]="post.image" alt="" loading="lazy" />
+                          <img [src]="post.preview || post.image" alt="" loading="lazy" />
+                          <div class="phone-feed__tile phone-feed__tile--brand">
+                            <p class="phone-feed__brand">MEIBE</p>
+                            <span class="phone-feed__i">I</span>
+                          </div>
+                        </div>
+                        <img [src]="post.image2 || post.image" alt="" loading="lazy" />
+                        <div class="phone-feed__grid4">
+                          <img [src]="post.image" alt="" loading="lazy" />
+                          <img [src]="post.preview || post.image" alt="" loading="lazy" />
+                          <div class="phone-feed__tile">Craft + growth</div>
+                          <img [src]="post.image2 || post.image" alt="" loading="lazy" />
+                        </div>
+                      </div>
+                    }
+                  }
+                </div>
+              </div>
+
+              <footer class="phone-card__bar phone-card__bar--foot">
+                <div class="phone-card__actions" aria-hidden="true">
+                  <span>♡</span>
+                  <span>💬</span>
+                  <span>➤</span>
+                </div>
+                <span class="phone-card__save" aria-hidden="true">bookmark</span>
+              </footer>
+            </article>
+          }
+        }
+      </div>
+
+      <div class="evo-phone__controls">
+        <button type="button" class="evo-carousel__btn" aria-label="Anterior" (click)="prevPhone()">←</button>
+        <button type="button" class="evo-carousel__btn" aria-label="Siguiente" (click)="nextPhone(true)">→</button>
+      </div>
+    </section>
+
     <!-- ORANGE PANEL -->
     <section class="evo-orange">
       <div class="evo-wrap evo-orange__grid">
