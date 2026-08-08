@@ -1,160 +1,335 @@
-import { Component } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
-import { ThreeSceneComponent } from '../../components/three-scene/three-scene.component';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  ViewChild
+} from '@angular/core';
 
 @Component({
   selector: 'app-version1',
   standalone: true,
-  imports: [HeaderComponent, ThreeSceneComponent],
   templateUrl: './version1.component.html',
   styleUrl: './version1.component.scss'
 })
-export class Version1Component {
-  readonly whatsapp = 'https://wa.me/525636352382';
+export class Version1Component implements AfterViewInit, OnDestroy {
+  @ViewChild('page', { static: true }) pageRef!: ElementRef<HTMLElement>;
 
-  menuOpenFaq = 0;
+  readonly whatsapp =
+    'https://wa.me/525636352382?text=Hola%20Meibe%2C%20quiero%20hablar%20sobre%20un%20proyecto.';
 
-  readonly problemCards = [
-    'Mensajes incoherentes entre canales',
-    'Tres proveedores que no se hablan',
-    'Contenido que no mueve la aguja'
+  menuOpen = false;
+  scrolled = false;
+  carouselIndex = 0;
+  phoneIndex = 0;
+  pillarIndex = 0;
+  private observer?: IntersectionObserver;
+  private carouselTimer?: ReturnType<typeof setInterval>;
+  private phoneTimer?: ReturnType<typeof setInterval>;
+  private pillarTimer?: ReturnType<typeof setInterval>;
+
+  readonly nav = [
+    { label: 'Work', href: '#work' },
+    { label: 'Services', href: '#services' },
+    { label: 'About', href: '#about' },
+    { label: 'Contact', href: '#contact' }
   ];
 
-  readonly solutionCards = [
+  /** Portrait carousel — 12 images (4 from client strip + editorial portraits) */
+  readonly carousel = [
+    { src: '/carousel/p1.jpg', alt: 'Portrait studio lighting' },
+    { src: '/carousel/p2.jpg', alt: 'Creative in workshop' },
+    { src: '/carousel/p3.jpg', alt: 'Joyful urban portrait' },
+    { src: '/carousel/p4.jpg', alt: 'Clean professional portrait' },
     {
-      title: 'Un solo techo',
-      text: 'No coordinas tres proveedores distintos. Por eso todo se siente coherente.'
+      src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80',
+      alt: 'Editorial close-up'
     },
     {
-      title: 'Estándar internacional',
-      text: 'Raíz mexicana con ambición global: sensibilidad local, ejecución global.'
+      src: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=900&q=80',
+      alt: 'Street style portrait'
     },
     {
-      title: 'Resultados medibles',
-      text: 'Alcance, percepción y conversión. No solo estética.'
+      src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80',
+      alt: 'Fashion portrait'
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=900&q=80',
+      alt: 'Natural light portrait'
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=900&q=80',
+      alt: 'Soft portrait'
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=900&q=80',
+      alt: 'Studio male portrait'
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80',
+      alt: 'Warm tone portrait'
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80',
+      alt: 'Classic portrait'
     }
   ];
 
-  readonly agencyServices = [
-    'Branding y arquitectura de marca',
-    'Estrategia digital',
-    'Manejo de redes sociales',
-    'Diseño de contenido',
-    'UGC & talent management',
-    'Paid media — Meta / TikTok Ads / Google Analytics',
-    'Diseño web',
-    'Ilustración & animación'
-  ];
-
-  readonly productionServices = [
-    'Video & foto de contenido',
-    'Producción con dron',
-    'Postproducción y edición de audio y video',
-    'Cobertura de eventos sociales',
-    'Grabación de audio',
-    'Producción de podcast',
-    'Doblaje, mezcla & mastering'
-  ];
-
-  readonly processSteps = [
+  /** Instagram-style phone posts (10+) — center scrolls like a phone */
+  readonly phonePosts = [
     {
-      n: '01',
-      title: 'Entendemos el porqué',
-      text: 'Nunca empezamos por el diseño. Primero el porqué, el para quién y el qué quieres lograr.'
+      kind: 'growth',
+      tag: 'WEB APP',
+      title: 'New project created for growth.',
+      image:
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
+      image2:
+        'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=900&q=80',
+      stat: 'Earnings + 90%',
+      range: '2025 — 2026'
     },
     {
-      n: '02',
-      title: 'Diseñamos la estrategia',
-      text: 'Territorio de marca, mensajes y plan de canales con métricas definidas desde el día uno.'
+      kind: 'feature',
+      title: 'One more + feature',
+      caption: 'This is what happens when your product keeps growing and your interface doesn’t.',
+      image:
+        'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=900&q=80'
     },
     {
-      n: '03',
-      title: 'Creamos y producimos',
-      text: 'Pensamos como cineastas: ritmo, narrativa y emoción. Todo bajo el mismo techo.'
+      kind: 'agency',
+      title: 'Design agency for startups and enterprise',
+      image:
+        'https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=900&q=80'
     },
     {
-      n: '04',
-      title: 'Medimos y ajustamos',
-      text: 'Alcance, percepción y conversión. Los resultados mandan sobre lo bonito.'
+      kind: 'website',
+      title: 'New Website',
+      image:
+        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80',
+      image2:
+        'https://images.unsplash.com/photo-1557683316-973635b84ce9?auto=format&fit=crop&w=900&q=80',
+      preview:
+        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80'
+    },
+    {
+      kind: 'growth',
+      tag: 'BRAND',
+      title: 'Identity that grows with you.',
+      image:
+        'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=900&q=80',
+      image2:
+        'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=900&q=80',
+      stat: 'Reach + 120%',
+      range: '2024 — 2026'
+    },
+    {
+      kind: 'feature',
+      title: 'Content that lands',
+      caption: 'Same story across photo, video and paid — one creative line.',
+      image:
+        'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80'
+    },
+    {
+      kind: 'agency',
+      title: 'Campaigns built to be felt',
+      image:
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80'
+    },
+    {
+      kind: 'website',
+      title: 'Product launch',
+      image:
+        'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+      image2:
+        'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=900&q=80',
+      preview:
+        'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=900&q=80'
+    },
+    {
+      kind: 'growth',
+      tag: 'VIDEO',
+      title: 'Stories that stay on screen.',
+      image:
+        'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80',
+      image2:
+        'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80',
+      stat: 'Watch + 3.2x',
+      range: 'Q1 — Q3'
+    },
+    {
+      kind: 'feature',
+      title: 'One team. One line.',
+      caption: 'Strategy, craft and production under the same roof.',
+      image:
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80'
     }
   ];
 
-  readonly cases = [
-    { title: '2 años', text: 'construyendo marcas que se sienten' },
-    { title: 'Marcas & Proyectos', text: 'creativos, campañas y producción por cliente' },
-    { title: 'Reportes', text: 'métricas de alcance, percepción y conversión' }
+  readonly services = [
+    { n: '01', title: 'Strategy', text: 'El porqué, el para quién y el resultado. Primero pensamos.' },
+    { n: '02', title: 'Brand & Content', text: 'Identidad, mensaje y piezas que se sienten en cada canal.' },
+    { n: '03', title: 'Audiovisual', text: 'Video, foto, audio y postproducción bajo la misma línea.' },
+    { n: '04', title: 'Growth', text: 'Paid media y medición: alcance, percepción y conversión.' }
   ];
 
-  readonly benefits = [
-    {
-      title: 'Estrategia primero',
-      text: 'El porqué antes del cómo. Nada se produce sin intención.'
-    },
-    {
-      title: 'Craft de cine',
-      text: 'Ritmo, narrativa y emoción en cada pieza que sale del estudio.'
-    },
-    {
-      title: 'Medimos lo que importa',
-      text: 'Reportes claros por marca: alcance, percepción y conversión.'
-    },
-    {
-      title: 'Socios, no proveedores',
-      text: 'Nos metemos al crecimiento de la marca, no solo a la entrega.'
+  readonly values = [
+    { tag: '+ Craft', text: 'Pensamos como cineastas: ritmo, narrativa y emoción. Descartamos el exceso para ganar claridad.' },
+    { tag: '+ Precision', text: 'Workflow profesional. Creatividad como ciencia aplicada para resolver problemas reales.' },
+    { tag: '+ Partners', text: 'Nos involucramos en el crecimiento de la marca, no solo en entregar archivos.' }
+  ];
+
+  readonly pillars = [
+    { label: 'Timeless' },
+    { label: 'Modern' },
+    { label: 'High performance' }
+  ];
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.scrolled = window.scrollY > 24;
+  }
+
+  ngAfterViewInit(): void {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+          }
+        }
+      },
+      { threshold: 0.18, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    this.pageRef.nativeElement
+      .querySelectorAll('[data-reveal]')
+      .forEach((el) => this.observer?.observe(el));
+
+    this.startCarousel();
+    this.startPhoneCarousel();
+    this.startPillars();
+  }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+    this.stopCarousel();
+    this.stopPhoneCarousel();
+    this.stopPillars();
+  }
+
+  get carouselMax(): number {
+    return Math.max(0, this.carousel.length - 1);
+  }
+
+  nextSlide(user = false): void {
+    this.carouselIndex = this.carouselIndex >= this.carouselMax ? 0 : this.carouselIndex + 1;
+    if (user) this.restartCarousel();
+  }
+
+  prevSlide(): void {
+    this.carouselIndex = this.carouselIndex <= 0 ? this.carouselMax : this.carouselIndex - 1;
+    this.restartCarousel();
+  }
+
+  goToSlide(i: number): void {
+    this.carouselIndex = i;
+    this.restartCarousel();
+  }
+
+  /** Relative slot: -1 left, 0 center, 1 right — advancing moves cards to the right */
+  phoneSlot(i: number): -1 | 0 | 1 | null {
+    const n = this.phonePosts.length;
+    let d = (this.phoneIndex - i) % n;
+    if (d > n / 2) d -= n;
+    if (d < -n / 2) d += n;
+    if (d === -1 || d === 0 || d === 1) return d as -1 | 0 | 1;
+    return null;
+  }
+
+  nextPhone(user = false): void {
+    this.phoneIndex = (this.phoneIndex + 1) % this.phonePosts.length;
+    if (user) this.restartPhoneCarousel();
+  }
+
+  prevPhone(): void {
+    this.phoneIndex = (this.phoneIndex - 1 + this.phonePosts.length) % this.phonePosts.length;
+    this.restartPhoneCarousel();
+  }
+
+  private startCarousel(): void {
+    this.stopCarousel();
+    this.carouselTimer = setInterval(() => this.nextSlide(), 3500);
+  }
+
+  private stopCarousel(): void {
+    if (this.carouselTimer) {
+      clearInterval(this.carouselTimer);
+      this.carouselTimer = undefined;
     }
-  ];
+  }
 
-  readonly portfolio = [
-    'Médicos y clínicas',
-    'Beauty & wellness',
-    'Estudios de ejercicio',
-    'Restaurantes',
-    'E-commerce & emprendedores',
-    'Marcas personales, cursos y podcasts'
-  ];
+  restartCarousel(): void {
+    this.startCarousel();
+  }
 
-  readonly plans = [
-    {
-      title: 'Solo producción',
-      text: 'Video, foto, audio, podcast y postproducción para marcas personales, cursos y podcasts.',
-      featured: false
-    },
-    {
-      title: 'Marketing & estrategia',
-      text: 'Branding, redes, contenido, paid media y web con métricas definidas.',
-      featured: false
-    },
-    {
-      title: 'Estudio completo',
-      text: 'Estrategia + creatividad + producción bajo un mismo techo. La ventaja Meibe.',
-      featured: true
+  private startPhoneCarousel(): void {
+    this.stopPhoneCarousel();
+    this.phoneTimer = setInterval(() => this.nextPhone(), 4200);
+  }
+
+  private stopPhoneCarousel(): void {
+    if (this.phoneTimer) {
+      clearInterval(this.phoneTimer);
+      this.phoneTimer = undefined;
     }
-  ];
+  }
 
-  readonly faqs = [
-    {
-      q: '¿Puedo contratar solo producción audiovisual?',
-      a: 'Sí. Muchas marcas personales, cursos y podcasts llegan solo por producción de contenido: video, foto, audio y postproducción. También puedes sumar estrategia después.'
-    },
-    {
-      q: '¿Cómo comparten resultados y casos de éxito?',
-      a: 'Damos acceso a carpetas de clientes activos e inactivos y a reportes por marca, con métricas reales de alcance, percepción y conversión.'
-    },
-    {
-      q: '¿Trabajan con marcas fuera de México?',
-      a: 'Sí. Estamos rooted in Mexico, thinking globally: sensibilidad local con ejecución de estándar internacional.'
-    },
-    {
-      q: '¿Cuánto tiempo llevan operando?',
-      a: 'Llevamos 2 años construyendo marcas que se sienten, con proyectos creativos, campañas y producción por cliente.'
-    },
-    {
-      q: '¿Tienen disponibilidad ahora?',
-      a: 'Quedan últimos espacios de agenda en 2026. Escríbenos por WhatsApp y te confirmamos tiempos según el alcance.'
+  restartPhoneCarousel(): void {
+    this.startPhoneCarousel();
+  }
+
+  setPillar(i: number): void {
+    this.pillarIndex = i;
+    this.restartPillars();
+  }
+
+  pillarOpacity(i: number): number {
+    const d = Math.abs(i - this.pillarIndex);
+    if (d === 0) return 1;
+    if (d === 1) return 0.45;
+    return 0.28;
+  }
+
+  pillarShift(i: number): string {
+    // bulge of the arc — middle sits further right
+    const map = ['0rem', '1.65rem', '0.35rem'];
+    return map[i] ?? '0rem';
+  }
+
+  private startPillars(): void {
+    this.stopPillars();
+    this.pillarTimer = setInterval(() => {
+      this.pillarIndex = (this.pillarIndex + 1) % this.pillars.length;
+    }, 2600);
+  }
+
+  private stopPillars(): void {
+    if (this.pillarTimer) {
+      clearInterval(this.pillarTimer);
+      this.pillarTimer = undefined;
     }
-  ];
+  }
 
-  toggleFaq(index: number): void {
-    this.menuOpenFaq = this.menuOpenFaq === index ? -1 : index;
+  private restartPillars(): void {
+    this.startPillars();
+  }
+
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu(): void {
+    this.menuOpen = false;
   }
 }
