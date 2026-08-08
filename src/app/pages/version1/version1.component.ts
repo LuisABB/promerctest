@@ -23,9 +23,11 @@ export class Version1Component implements AfterViewInit, OnDestroy {
   scrolled = false;
   carouselIndex = 0;
   phoneIndex = 0;
+  pillarIndex = 0;
   private observer?: IntersectionObserver;
   private carouselTimer?: ReturnType<typeof setInterval>;
   private phoneTimer?: ReturnType<typeof setInterval>;
+  private pillarTimer?: ReturnType<typeof setInterval>;
 
   readonly nav = [
     { label: 'Work', href: '#work' },
@@ -177,6 +179,12 @@ export class Version1Component implements AfterViewInit, OnDestroy {
     { tag: '+ Partners', text: 'Nos involucramos en el crecimiento de la marca, no solo en entregar archivos.' }
   ];
 
+  readonly pillars = [
+    { label: 'Timeless' },
+    { label: 'Modern' },
+    { label: 'High performance' }
+  ];
+
   @HostListener('window:scroll')
   onScroll(): void {
     this.scrolled = window.scrollY > 24;
@@ -200,12 +208,14 @@ export class Version1Component implements AfterViewInit, OnDestroy {
 
     this.startCarousel();
     this.startPhoneCarousel();
+    this.startPillars();
   }
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
     this.stopCarousel();
     this.stopPhoneCarousel();
+    this.stopPillars();
   }
 
   get carouselMax(): number {
@@ -277,6 +287,42 @@ export class Version1Component implements AfterViewInit, OnDestroy {
 
   restartPhoneCarousel(): void {
     this.startPhoneCarousel();
+  }
+
+  setPillar(i: number): void {
+    this.pillarIndex = i;
+    this.restartPillars();
+  }
+
+  pillarOpacity(i: number): number {
+    const d = Math.abs(i - this.pillarIndex);
+    if (d === 0) return 1;
+    if (d === 1) return 0.45;
+    return 0.28;
+  }
+
+  pillarShift(i: number): string {
+    // bulge of the arc — middle sits further right
+    const map = ['0rem', '1.65rem', '0.35rem'];
+    return map[i] ?? '0rem';
+  }
+
+  private startPillars(): void {
+    this.stopPillars();
+    this.pillarTimer = setInterval(() => {
+      this.pillarIndex = (this.pillarIndex + 1) % this.pillars.length;
+    }, 2600);
+  }
+
+  private stopPillars(): void {
+    if (this.pillarTimer) {
+      clearInterval(this.pillarTimer);
+      this.pillarTimer = undefined;
+    }
+  }
+
+  private restartPillars(): void {
+    this.startPillars();
   }
 
   toggleMenu(): void {

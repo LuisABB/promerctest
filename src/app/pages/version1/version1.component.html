@@ -9,9 +9,6 @@
       @for (link of nav; track link.href) {
         <a [href]="link.href" (click)="closeMenu()">{{ link.label }}</a>
       }
-      <a class="evo-btn evo-nav__cta" [href]="whatsapp" target="_blank" rel="noopener" (click)="closeMenu()">
-        Start a project
-      </a>
     </nav>
     <a class="evo-btn evo-header__cta" [href]="whatsapp" target="_blank" rel="noopener">Start a project</a>
     <button class="evo-burger" type="button" [attr.aria-expanded]="menuOpen" aria-label="Menú" (click)="toggleMenu()">
@@ -230,6 +227,53 @@
           We don't want people to just see your brand.<br />
           <em>We want them to feel it.</em>
         </h2>
+      </div>
+    </section>
+
+    <!-- PILLARS ARC (video + coded Timeless / Modern / High performance) -->
+    <section class="evo-arc" aria-label="Pillars" data-reveal>
+      <div class="evo-arc__media" aria-hidden="true">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+        >
+          <source src="/video/arc-portrait.mp4" type="video/mp4" />
+        </video>
+        <div class="evo-arc__tint"></div>
+      </div>
+
+      <svg class="evo-arc__curve" viewBox="0 0 200 1000" preserveAspectRatio="none" aria-hidden="true">
+        <path
+          d="M70 0
+             C 160 180, 185 360, 155 500
+             C 125 640, 55 820, 40 1000"
+          stroke="rgba(255,255,255,0.55)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          fill="none"
+          vector-effect="non-scaling-stroke"
+        />
+      </svg>
+
+      <div class="evo-arc__ui">
+        <ul class="evo-arc__list" role="list">
+          @for (item of pillars; track item.label; let i = $index) {
+            <li
+              class="evo-arc__item"
+              [class.is-active]="pillarIndex === i"
+              [style.--o]="pillarOpacity(i)"
+              [style.--x]="pillarShift(i)"
+            >
+              <button type="button" (click)="setPillar(i)">
+                <span class="evo-arc__dot"></span>
+                <span class="evo-arc__label">{{ item.label }}</span>
+              </button>
+            </li>
+          }
+        </ul>
       </div>
     </section>
 
