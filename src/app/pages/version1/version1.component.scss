@@ -299,37 +299,103 @@
   }
 }
 
-/* STRIP */
-.evo-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  background: #000;
-  min-height: 42vh;
+/* PORTRAIT CAROUSEL */
+.evo-carousel {
+  --slide-w: min(28vw, 280px);
+  --gap: 10px;
+  padding: 2.5rem 0 3rem;
+  background: #050505;
+  overflow: hidden;
 
-  &__panel {
-    position: relative;
+  &__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__controls {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__btn {
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: transparent;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      border-color: var(--accent, #ff5a1f);
+      background: var(--accent, #ff5a1f);
+      color: #0a0a0a;
+    }
+  }
+
+  &__viewport {
     overflow: hidden;
-    min-height: 280px;
+    padding: 0.5rem 0 1rem;
+  }
 
-    video {
+  &__track {
+    display: flex;
+    gap: var(--gap);
+    width: max-content;
+    padding-inline: max(1rem, calc(50% - var(--slide-w) / 2));
+    transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  &__slide {
+    margin: 0;
+    flex: 0 0 var(--slide-w);
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #111;
+    filter: grayscale(0.15) contrast(1.05);
+    opacity: 0.55;
+    transform: scale(0.92);
+    transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+
+    img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 1.1s ease;
-      filter: saturate(1.2) contrast(1.05);
+      display: block;
     }
 
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.35));
-      pointer-events: none;
+    &.is-active {
+      opacity: 1;
+      transform: scale(1);
+      filter: none;
     }
+  }
 
-    &:hover video {
-      transform: scale(1.06);
+  &__dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+
+  &__dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+
+    &.is-on {
+      background: var(--accent, #ff5a1f);
+      transform: scale(1.25);
     }
   }
 }
@@ -381,7 +447,150 @@
   }
 }
 
-/* ABOUT */
+/* MEIBE SIGNATURE — EVO-style grid mark */
+.evo-sig {
+  position: relative;
+  min-height: min(72vh, 640px);
+  display: grid;
+  place-items: center;
+  padding: 4rem 1.25rem 3.5rem;
+  background: #050505;
+  overflow: hidden;
+  border-block: 1px solid rgba(255, 255, 255, 0.06);
+
+  &__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 72px 72px;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 1.1s ease, transform 1.4s ease;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 20%, transparent 75%);
+  }
+
+  &__meta {
+    position: absolute;
+    top: 1.35rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(207, 207, 207, 0.72);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+  }
+
+  &__word {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.35rem, 1.8vw, 1.35rem);
+    user-select: none;
+  }
+
+  &__ch {
+    display: grid;
+    place-items: center;
+    height: clamp(4.2rem, 14vw, 9.5rem);
+    color: #cfcfcf;
+    opacity: 0;
+    transform: translateY(28px) scale(0.92);
+    filter: blur(6px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i) * 90ms + 280ms),
+      transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i) * 90ms + 280ms),
+      filter 0.85s ease calc(var(--i) * 90ms + 280ms);
+
+    &--glyph {
+      width: auto;
+    }
+
+    &--i {
+      width: clamp(1.55rem, 5.2vw, 3.4rem);
+    }
+
+    &--e {
+      width: clamp(2.6rem, 8.5vw, 5.6rem);
+      height: clamp(4.2rem, 14vw, 9.5rem);
+    }
+  }
+
+  &__glyph {
+    height: 100%;
+    width: auto;
+    display: block;
+  }
+
+  &__ch--glyph:not(.evo-sig__ch--i) .evo-sig__glyph {
+    aspect-ratio: 0.82 / 1;
+  }
+
+  /* Geometric E — bracket + floating middle bar */
+  &__e {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: clamp(0.55rem, 1.7vw, 1.05rem) solid #cfcfcf;
+    border-right: 0;
+    border-radius: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 38%;
+      width: 42%;
+      height: clamp(0.55rem, 1.7vw, 1.05rem);
+      background: #cfcfcf;
+      transform: translateY(-50%);
+    }
+  }
+
+  &.is-in {
+    .evo-sig__grid {
+      opacity: 1;
+      transform: none;
+    }
+
+    .evo-sig__meta {
+      opacity: 1;
+      transform: none;
+    }
+
+    .evo-sig__ch {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ABOUT — was after banner */
 .evo-about {
   padding: clamp(5rem, 10vw, 8rem) 0;
   background: #000;
@@ -655,8 +864,8 @@
 }
 
 @media (max-width: 980px) {
-  .evo-strip {
-    grid-template-columns: 1fr 1fr;
+  .evo-carousel {
+    --slide-w: min(42vw, 260px);
   }
 
   .evo-about__grid,
@@ -716,13 +925,17 @@
     }
   }
 
-  .evo-strip {
-    grid-template-columns: 1fr;
-    min-height: auto;
+  .evo-carousel {
+    --slide-w: min(68vw, 280px);
   }
 
-  .evo-strip__panel {
-    min-height: 220px;
+  .evo-sig {
+    min-height: 52vh;
+    padding-block: 3rem;
+  }
+
+  .evo-sig__word {
+    gap: 0.2rem;
   }
 
   .evo-hero__meta {
@@ -738,8 +951,21 @@
   }
 
   .evo-btn:hover,
-  .evo-strip__panel:hover video,
   .evo-shot:hover img {
     transform: none;
+  }
+
+  .evo-carousel__track {
+    transition: none;
+  }
+
+  .evo-sig__ch,
+  .evo-sig__grid,
+  .evo-sig__meta {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+    animation: none !important;
   }
 }
